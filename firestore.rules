@@ -1,0 +1,107 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function admin() {
+      return signedIn() &&
+        (request.auth.token.admin == true ||
+         request.auth.token.role == "admin" ||
+         request.auth.token.role == "superadmin");
+    }
+
+    function owner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    match /movies/{id} {
+      allow read: if admin() || resource.data.status == "published";
+      allow create, update, delete: if admin();
+
+      match /sources/{sourceId} {
+        allow read: if admin() ||
+          get(/databases/$(database)/documents/movies/$(id)).data.status == "published";
+        allow create, update, delete: if admin();
+      }
+    }
+
+    match /series/{id} {
+      allow read: if admin() || resource.data.status == "published";
+      allow create, update, delete: if admin();
+
+      match /episodes/{episodeId} {
+        allow read: if admin() ||
+          get(/databases/$(database)/documents/series/$(id)).data.status == "published";
+        allow create, update, delete: if admin();
+
+        match /sources/{sourceId} {
+          allow read: if admin() ||
+            get(/databases/$(database)/documents/series/$(id)).data.status == "published";
+          allow create, update, delete: if admin();
+        }
+      }
+    }
+
+    match /genres/{id} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /countries/{id} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /homepage_sections/{id} {
+      allow read: if admin() || resource.data.active == true;
+      allow write: if admin();
+    }
+
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /users/{uid} {
+      allow read, create, update: if owner(uid) || admin();
+      allow delete: if admin();
+
+      match /favorites/{id} {
+        allow read, create, update, delete: if owner(uid) || admin();
+      }
+
+      match /watch_history/{id} {
+        allow read, create, update, delete: if owner(uid) || admin();
+      }
+    }
+
+    match /comments/{id} {
+      allow read: if resource.data.status == "published" || admin();
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if admin() ||
+        (signedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    match /ratings/{id} {
+      allow read: if true;
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if admin() ||
+        (signedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    match /activity_logs/{id} {
+      allow read: if admin();
+      allow create: if signedIn();
+      allow update, delete: if admin();
+    }
+
+    match /admins/{uid} {
+      allow read: if owner(uid) || admin();
+      allow write: if admin();
+    }
+  }
+}

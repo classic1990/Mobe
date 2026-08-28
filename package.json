@@ -1,0 +1,21 @@
+{
+  "name": "duydodeesport",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && firebase deploy --only hosting,firestore:rules,firestore:indexes",
+    "seed": "node scripts/seed.js",
+    "set-admin": "node scripts/set-admin.js"
+  },
+  "dependencies": {
+    "firebase": "^12.10.0"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0",
+    "firebase-tools": "^14.0.0"
+  }
+}

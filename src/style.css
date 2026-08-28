@@ -1,0 +1,936 @@
+:root {
+  --bg: #07070b;
+  --bg-soft: #0d0d14;
+  --card: #11111a;
+  --card-2: #171722;
+  --text: #ffffff;
+  --muted: #a5a5b5;
+  --line: rgba(255,255,255,.09);
+  --purple: #8b5cf6;
+  --purple-2: #6d28d9;
+  --blue: #38bdf8;
+  --gold: #f5c542;
+  --danger: #ef4444;
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(139,92,246,.15),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(56,189,248,.08),
+      transparent 30%
+    ),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      rgba(255,255,255,.015) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.015) 1px,
+      transparent 1px
+    );
+  background-size: 40px 40px;
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  height: 72px;
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  background:
+    rgba(7,7,11,.82);
+
+  backdrop-filter: blur(18px);
+
+  border-bottom:
+    1px solid var(--line);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -.5px;
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 25px rgba(139,92,246,.45);
+}
+
+.brand b {
+  color: var(--purple);
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+}
+
+nav a {
+  color: var(--muted);
+  font-weight: 600;
+  transition: .2s;
+}
+
+nav a:hover {
+  color: white;
+  text-shadow:
+    0 0 15px rgba(139,92,246,.7);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.actions button,
+.back-btn {
+  padding: 10px 16px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,.06);
+  color: white;
+
+  border: 1px solid var(--line);
+
+  transition: .2s;
+}
+
+.actions button:hover,
+.back-btn:hover {
+  background: rgba(139,92,246,.18);
+  border-color: rgba(139,92,246,.5);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 500px;
+  padding: 100px 7%;
+
+  display: flex;
+  align-items: center;
+
+  background:
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(139,92,246,.22),
+      transparent 35%
+    ),
+    linear-gradient(
+      120deg,
+      #08080d,
+      #11101c,
+      #08080d
+    );
+
+  border-bottom:
+    1px solid var(--line);
+}
+
+.hero h1 {
+  margin: 15px 0;
+  max-width: 700px;
+
+  font-size:
+    clamp(42px, 7vw, 82px);
+
+  line-height: .98;
+  letter-spacing: -3px;
+}
+
+.hero h1 em {
+  font-style: normal;
+
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      var(--purple),
+      var(--blue)
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+/* =========================
+   PRIMARY
+========================= */
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 20px;
+  padding: 13px 24px;
+
+  border-radius: 13px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple-2)
+    );
+
+  box-shadow:
+    0 12px 40px
+    rgba(109,40,217,.35);
+
+  font-weight: 800;
+
+  transition: .25s;
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 18px 50px
+    rgba(139,92,246,.45);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section,
+.page {
+  width: min(1400px, 92%);
+  margin: auto;
+}
+
+.section {
+  padding: 55px 0;
+}
+
+.page {
+  padding: 45px 0 80px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.section-head h1,
+.section-head h2 {
+  margin: 0;
+}
+
+.section-head h1 {
+  font-size: 34px;
+}
+
+.section-head h2 {
+  font-size: 28px;
+}
+
+.section-head a {
+  color: var(--purple);
+  font-weight: 700;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(180px, 1fr)
+    );
+
+  gap: 20px;
+}
+
+/* =========================
+   MOVIE CARD
+========================= */
+
+.movie-card {
+  position: relative;
+  overflow: hidden;
+
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--card-2),
+      var(--card)
+    );
+
+  border:
+    1px solid var(--line);
+
+  cursor: pointer;
+
+  transition:
+    transform .25s,
+    border-color .25s,
+    box-shadow .25s;
+}
+
+.movie-card:hover {
+  transform:
+    translateY(-7px);
+
+  border-color:
+    rgba(139,92,246,.5);
+
+  box-shadow:
+    0 18px 50px
+    rgba(0,0,0,.45),
+    0 0 30px
+    rgba(139,92,246,.12);
+}
+
+.movie-card img {
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 2 / 3;
+
+  object-fit: cover;
+
+  background: #15151d;
+}
+
+.movie-info {
+  padding: 15px;
+}
+
+.movie-info h3 {
+  margin: 0 0 7px;
+
+  font-size: 16px;
+  line-height: 1.35;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+.movie-info p {
+  margin: 0 0 10px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-info span {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================
+   CHIPS
+========================= */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.chips a {
+  padding: 11px 17px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid var(--line);
+
+  color: #ddd;
+
+  transition: .2s;
+}
+
+.chips a:hover {
+  background:
+    rgba(139,92,246,.18);
+
+  border-color:
+    rgba(139,92,246,.5);
+
+  color: white;
+}
+
+/* =========================
+   WATCH PAGE
+========================= */
+
+.watch-page {
+  width: 100%;
+  min-height: calc(100vh - 72px);
+
+  padding-bottom: 80px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(139,92,246,.12),
+      transparent 40%
+    );
+}
+
+.watch-top {
+  width: min(1400px, 92%);
+  margin: auto;
+
+  padding: 28px 0 18px;
+}
+
+.watch-container {
+  width: min(1200px, 92%);
+  margin: auto;
+}
+
+/* VIDEO */
+
+.video-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background:
+    #000;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  box-shadow:
+    0 30px 90px
+    rgba(0,0,0,.65),
+    0 0 60px
+    rgba(139,92,246,.10);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+}
+
+/* VIDEO EMPTY */
+
+.video-empty {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.15),
+      #050507 70%
+    );
+}
+
+.video-empty h2 {
+  margin-bottom: 8px;
+}
+
+.video-empty p {
+  color: var(--muted);
+}
+
+/* WATCH INFO */
+
+.watch-info {
+  display: grid;
+
+  grid-template-columns:
+    150px 1fr;
+
+  gap: 25px;
+
+  margin-top: 28px;
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  border:
+    1px solid var(--line);
+
+  backdrop-filter: blur(10px);
+}
+
+.watch-poster {
+  width: 150px;
+
+  aspect-ratio: 2 / 3;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  border:
+    1px solid var(--line);
+}
+
+.watch-info h1 {
+  margin: 0 0 15px;
+
+  font-size:
+    clamp(24px, 4vw, 38px);
+
+  line-height: 1.15;
+}
+
+.watch-info p {
+  color: var(--muted);
+
+  line-height: 1.7;
+
+  max-width: 850px;
+}
+
+.watch-meta {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.watch-meta span {
+  padding: 8px 13px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(139,92,246,.12);
+
+  border:
+    1px solid
+    rgba(139,92,246,.25);
+
+  color: #ddd;
+
+  font-size: 13px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 40px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  border:
+    1px solid var(--line);
+}
+
+.empty p,
+.empty small {
+  color: var(--muted);
+
+  max-width: 700px;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth-page {
+  min-height: 70vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid var(--line);
+
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.35);
+}
+
+.auth-card h2 {
+  margin-top: 0;
+}
+
+.auth-card form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-card input {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  background:
+    rgba(0,0,0,.35);
+
+  border:
+    1px solid var(--line);
+
+  color: white;
+}
+
+.auth-card input:focus {
+  border-color:
+    var(--purple);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(139,92,246,.12);
+}
+
+#authMessage {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading-screen {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139,92,246,.15),
+      #07070b 55%
+    );
+}
+
+.loading-screen h1 {
+  font-size: 42px;
+
+  animation:
+    loadingGlow 1.5s ease-in-out infinite alternate;
+}
+
+.loading-screen b {
+  color: var(--purple);
+}
+
+.loading-screen p {
+  color: var(--muted);
+}
+
+@keyframes loadingGlow {
+
+  from {
+    opacity: .55;
+    transform: scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  padding: 35px 5%;
+
+  margin-top: 60px;
+
+  text-align: center;
+
+  color: #666;
+
+  border-top:
+    1px solid var(--line);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  header {
+    height: auto;
+
+    min-height: 64px;
+
+    padding: 12px 4%;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+  }
+
+  nav {
+    order: 3;
+
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    padding-top: 5px;
+  }
+
+  .actions {
+    margin-left: auto;
+  }
+
+  .actions button {
+    padding: 8px 11px;
+
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 430px;
+
+    padding:
+      70px 6%;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .movie-info {
+    padding: 11px;
+  }
+
+  .movie-info h3 {
+    font-size: 14px;
+  }
+
+  .watch-container {
+    width: 100%;
+  }
+
+  .watch-top {
+    width: 92%;
+  }
+
+  .video-wrapper {
+    border-radius: 0;
+
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .watch-info {
+    width: 92%;
+    margin: 20px auto 0;
+
+    grid-template-columns:
+      90px 1fr;
+
+    gap: 15px;
+
+    padding: 15px;
+  }
+
+  .watch-poster {
+    width: 90px;
+  }
+
+  .watch-info h1 {
+    font-size: 21px;
+  }
+
+  .watch-info p {
+    font-size: 13px;
+  }
+
+  .back-btn {
+    padding: 9px 13px;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .brand {
+    font-size: 18px;
+  }
+
+  nav {
+    font-size: 13px;
+  }
+
+  .grid {
+    gap: 9px;
+  }
+
+  .movie-info span {
+    font-size: 11px;
+  }
+
+}

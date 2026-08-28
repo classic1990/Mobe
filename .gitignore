@@ -1,0 +1,26 @@
+node_modules/
+dist/
+
+.env
+.env.*
+!.env.example
+
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+*.log
+
+.vscode/
+.idea/
+
+*.backup
+*.backup-*
+*.before-debug
+
+.DS_Store
+
+# All backup / temporary source files
+*.backup*
+*.before-debug*
